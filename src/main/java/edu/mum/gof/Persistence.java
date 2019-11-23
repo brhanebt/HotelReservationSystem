@@ -54,7 +54,7 @@ public class Persistence {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 7748094024888299571L;
+			private static final long serialVersionUID = 7748094024888299563L;
 
 			{
                 setProperty("hibernate.hbm2ddl.auto",environment.getProperty("hibernate.hbm2ddl.auto"));
