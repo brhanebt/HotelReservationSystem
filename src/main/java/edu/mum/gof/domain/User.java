@@ -1,65 +1,74 @@
 package edu.mum.gof.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity
-@Table(name = "user")
-public class User implements Serializable{
+@Entity(name = "auth_user")
+@Table(name = "auth_user")
+public class User implements Serializable {
 
-	private static final long serialVersionUID = 5470501927168118479L;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4610747650248597533L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@Column(name = "auth_user_id")
+	private int id;
 
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@NotEmpty
-	@Column(name = "last_name")	
-	private String lastName;
-	
-	@NotEmpty(message = "{field.message}")
-	@Email
-	@Column
-	private String email;
-	
-	@NotEmpty
-	@Column(name = "phone_number")
-	private String phoneNumber;
-	
-	@NotEmpty
-	@Column(name = "user_name")
+	@NotBlank
+	@Column(name = "userName")
 	private String userName;
 	
+	@NotBlank
+	@Column(name = "first_name")
+	private String firstName;
+
+	@NotBlank
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Email
+	@Column(name = "email")
+	private String email;
+
 	@NotEmpty
 	@Column(name = "password")
 	private String password;
 
-//	@OneToMany
-//	@Column(name = "role_id")
-//	private List<Authority> roles;
-	
-	
-			//getters and setters
-	public Long getId() {
+	@NotBlank
+	@Column(name = "mobile")
+	private String mobile;
+
+	/**
+	 * Status: ACTIVE, INVALID
+	 * */
+	@Column(name = "status")
+	private String status;
+
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.REFRESH, fetch=FetchType.LAZY)
+	private Set<Role> roles;
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -87,12 +96,36 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getUserName() {
@@ -103,13 +136,4 @@ public class User implements Serializable{
 		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
 }
