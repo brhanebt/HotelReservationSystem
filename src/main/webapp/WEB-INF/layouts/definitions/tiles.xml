@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache
+Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+<definition name="baseLayout" template="/WEB-INF/layouts/template/baseLayout.jsp">
+<put-attribute name="title" value="Sample Title" />
+<put-attribute name="heading" value="" />
+<put-attribute name="tagline" value="" />
+<put-attribute name="navigation" value="/WEB-INF/layouts/template/navigation.jsp" />
+<put-attribute name="content" value="" />
+<put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp" />
+</definition>
+<definition name="home" extends="baseLayout">
+<put-attribute name="title" value="Home" />
+<put-attribute name="heading" value="Home"/>
+<put-attribute name="tagline" value="Welcome to our Room Reservation" />
+<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+</definition>
+<definition name="rooms" extends="baseLayout">
+<put-attribute name="title" value="Rooms List" />
+<put-attribute name="heading" value="Rooms List"/>
+<put-attribute name="tagline" value="List of Available Rooms" />
+<put-attribute name="content" value="/WEB-INF/views/room/rooms.jsp" />
+</definition>
+<definition name="addRoom" extends="baseLayout">
+<put-attribute name="title" value="Add Room" />
+<put-attribute name="heading" value="Add New Room"/>
+<put-attribute name="tagline" value="Add New Room" />
+<put-attribute name="content" value="/WEB-INF/views/room/addRoom.jsp" />
+</definition>
+<definition name="editRoom" extends="baseLayout">
+<put-attribute name="title" value="Edit Room" />
+<put-attribute name="heading" value="Edit Room"/>
+<put-attribute name="tagline" value="Edit Room" />
+<put-attribute name="content" value="/WEB-INF/views/room/editRoom.jsp" />
+</definition>
+<definition name="bookingRoom" extends="baseLayout">
+<put-attribute name="title" value="Booking" />
+<put-attribute name="heading" value="Booking"/>
+<put-attribute name="tagline" value="Room Booking" />
+<put-attribute name="content" value="/WEB-INF/views/booking/bookingRoom.jsp" />
+</definition>
+
+<definition name="list_customers" extends="baseLayout">
+<put-attribute name="title" value="Customer" />
+<put-attribute name="heading" value="Customer"/>
+<put-attribute name="tagline" value="Customers List"/>
+<put-attribute name="content" value="/WEB-INF/views/customer/list_customers.jsp" />
+</definition>
+<definition name="editCustomer" extends="baseLayout">
+<put-attribute name="title" value="Customer" />
+<put-attribute name="heading" value="Customer"/>
+<put-attribute name="tagline" value="Edit Customer"/>
+<put-attribute name="content" value="/WEB-INF/views/customer/editCustomer.jsp" />
+</definition>
+<definition name="viewCustomer" extends="baseLayout">
+<put-attribute name="title" value="Customer" />
+<put-attribute name="heading" value="Customer"/>
+<put-attribute name="tagline" value="Customers Details"/>
+<put-attribute name="content" value="/WEB-INF/views/customer/viewCustomer.jsp" />
+</definition>
+<definition name="addCustomer" extends="baseLayout">
+<put-attribute name="title" value="Customer" />
+<put-attribute name="heading" value="Customer"/>
+<put-attribute name="tagline" value="Add Customer"/>
+<put-attribute name="content" value="/WEB-INF/views/customer/addCustomer.jsp" />
+</definition>
+<definition name="billingForm" extends="baseLayout">
+<put-attribute name="title" value="Billing" />
+<put-attribute name="heading" value="Billing"/>
+<put-attribute name="tagline" value="Add Billing Info" />
+<put-attribute name="content" value="/WEB-INF/views/billing/billingForm.jsp" />
+</definition>
+<definition name="login" extends="baseLayout">
+<put-attribute name="title" value="Login" />
+<put-attribute name="heading" value="Login!" />
+<put-attribute name="tagline" value="Please Login" />
+<put-attribute name="content" value="/WEB-INF/views/user/login.jsp" />
+</definition>
+</tiles-definitions>

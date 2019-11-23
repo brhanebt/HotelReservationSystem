@@ -1,0 +1,15 @@
+label { text-align: right; }
+
+.roomAvail-margin-left{
+	padding-left: 3em!important;
+}
+.roomAvail-margin-top{
+	padding-top: 2em!important;
+}
+.roomAvail-margin-center{
+	padding-left: 20%;
+}
+#payment-id{
+	display: center;
+}
+
