@@ -13,3 +13,8 @@ label { text-align: right; }
 	display: center;
 }
 
+table {
+	border-collapse:separate; 
+	border-spacing:0px 10px;
+}
+

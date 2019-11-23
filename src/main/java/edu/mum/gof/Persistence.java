@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("edu.mum.gof.repository")
-@EnableJpaRepositories                      //("com.packt.webstore.repository")
+@ComponentScan("edu.mum.gof")
+@EnableJpaRepositories("edu.mum.gof")
 @PropertySource(value="classpath:application.properties")
 public class Persistence {
 
@@ -51,7 +51,12 @@ public class Persistence {
     
     private Properties getJpaProperties() {
         return new Properties() {
-            {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7748094024888299571L;
+
+			{
                 setProperty("hibernate.hbm2ddl.auto",environment.getProperty("hibernate.hbm2ddl.auto"));
                 setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("import.sql"));
                 setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
