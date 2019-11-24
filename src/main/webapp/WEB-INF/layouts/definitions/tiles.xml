@@ -79,4 +79,16 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
 <put-attribute name="tagline" value="Booking and Billing is Done!" />
 <put-attribute name="content" value="/WEB-INF/views/billing/thankyou.jsp" />
 </definition>
+<definition name="signup" extends="baseLayout">
+<put-attribute name="title" value="Sign Up" />
+<put-attribute name="heading" value="Sign Up!" />
+<put-attribute name="tagline" value="Please SignUp" />
+<put-attribute name="content" value="/WEB-INF/views/user/signup.jsp" />
+</definition>
+<definition name="user" extends="baseLayout">
+<put-attribute name="title" value="User" />
+<put-attribute name="heading" value="Welcome" />
+<put-attribute name="tagline" value="Welcome" />
+<put-attribute name="content" value="/WEB-INF/views/user/user.jsp" />
+</definition>
 </tiles-definitions>

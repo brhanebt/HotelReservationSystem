@@ -3,6 +3,7 @@ package edu.mum.gof;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,6 +22,13 @@ public class Security extends WebSecurityConfigurerAdapter
      @Autowired
     private DataSource dataSource;
  
+
+ 	@Value("${spring.queries.users-query}")
+ 	private String usersQuery;
+
+ 	@Value("${spring.queries.roles-query}")
+ 	private String rolesQuery;
+ 	
     @Autowired
     public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception
     {
@@ -45,8 +53,8 @@ public class Security extends WebSecurityConfigurerAdapter
           .jdbcAuthentication()
           .dataSource( dataSource )
           .passwordEncoder( passwordEncoder() )
-          .usersByUsernameQuery( "select username,password,enabled from users where username=?" )
-          .authoritiesByUsernameQuery( "select u1.username, u2.authority from users u1, authorities u2 where u1.username = u2.username and u1.username =?" );
+          .usersByUsernameQuery( usersQuery ) //"select username,password,enabled from users where username=?"
+          .authoritiesByUsernameQuery(rolesQuery ); //"select u1.username, u2.authority from users u1, authorities u2 where u1.username = u2.username and u1.username =?" 
     }
  
  
@@ -63,10 +71,18 @@ public class Security extends WebSecurityConfigurerAdapter
  			(anyRequest()) should always be at the bottom of the list.     
          */
            .authorizeRequests()
-                .antMatchers( "/login**" ).permitAll()
-                .antMatchers( "/employees/add" ).hasRole( "ADMIN" )
-                .antMatchers( "/employees" ).hasAnyRole( "ADMIN","USER" )
-                .anyRequest().permitAll()
+           .antMatchers( "/login**" ).permitAll()
+           .antMatchers( "/employees/add" ).hasRole( "ADMIN_ROLE" )
+           .antMatchers( "/employees" ).hasAnyRole( "ADMIN_ROLE","MANAGER_ROLE" )
+           .anyRequest().permitAll()
+
+           
+//                .antMatchers( "/","/login**" ).permitAll()
+//                .antMatchers("*/signup").permitAll()
+//                .antMatchers("/home/**").hasAnyAuthority( "ADMIN_ROLE", "USER_ROLE","MANAGER_ROLE")
+//                .antMatchers( "/user/add" ).hasRole( "ADMIN_ROLE" )
+//                .antMatchers( "/users" ).hasAnyRole( "ADMIN_ROLE","MANAGER_ROLE" )
+//                .anyRequest().authenticated()
              .and()
             
 				/*
@@ -77,9 +93,11 @@ public class Security extends WebSecurityConfigurerAdapter
 				 * defaultSuccessUrl: the URL to which the user will be redirected if login is successful 
 				 * failureUrl: the URL to which the user will be redirected if  failed login
 				 */
-             .formLogin()
+             .csrf().disable().formLogin()
                 .loginPage( "/login" )
+                .failureUrl("/login?error=true") //uncertain
                 .loginProcessingUrl( "/postlogin" )
+                .defaultSuccessUrl("/home")
                 .defaultSuccessUrl( "/welcome" )
                 .failureUrl( "/loginfailed" )
                 .permitAll()
@@ -95,7 +113,7 @@ public class Security extends WebSecurityConfigurerAdapter
 				 */ 
              .logout()
                 .logoutRequestMatcher( new AntPathRequestMatcher( "/dologout" ) )
-                .logoutSuccessUrl( "/logout" )
+                .logoutSuccessUrl( "/logout" ) // .logoutSuccessUrl( "/logout" ) -- optional
                 .deleteCookies( "JSESSIONID" )
                 .invalidateHttpSession( true )
                 
@@ -107,9 +125,11 @@ public class Security extends WebSecurityConfigurerAdapter
 
      }
     
+     //password encoder
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    	BCryptPasswordEncoder passwordEncoder =  new BCryptPasswordEncoder();
+    	return passwordEncoder;
     }
 
 }

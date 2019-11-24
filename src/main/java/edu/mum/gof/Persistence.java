@@ -11,7 +11,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.*;
 import org.springframework.orm.jpa.*;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -19,8 +18,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("edu.mum.gof.repository")
-@EnableJpaRepositories                      //("com.packt.webstore.repository")
+@ComponentScan("edu.mum.gof")
+@EnableJpaRepositories("edu.mum.gof")
 @PropertySource(value="classpath:application.properties")
 public class Persistence {
 
@@ -51,8 +50,13 @@ public class Persistence {
     
     private Properties getJpaProperties() {
         return new Properties() {
-            {
-                setProperty("hibernate.hbm2ddl.auto",environment.getProperty("hibernate.hbm2ddl.auto"));
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+                setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
                 setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("import.sql"));
                 setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
                 setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
@@ -75,5 +79,36 @@ public class Persistence {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
