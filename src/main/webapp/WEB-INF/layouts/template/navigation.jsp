@@ -3,9 +3,8 @@
 <div>
 		<nav class="navbar navbar-default">
 			<ul class="nav navbar-nav">
-				<li><a href="home">Home</a></li>
-				<li><a href="<spring:url value='/Rooms' />">Rooms</a></li>
 				<li><a href="<spring:url value='/Booking' />">Booking</a></li>
+				<li><a href="<spring:url value='/Rooms' />">Rooms</a></li>
 				<security:authorize access="isAnonymous()">
 					<li><a href="<spring:url value='#' />">Login</a></li>
 					<li><a href="<spring:url value='#' />">SignUp</a></li>

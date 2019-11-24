@@ -1,5 +1,7 @@
 package edu.mum.gof.utill;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,15 +11,15 @@ import edu.mum.gof.domain.Room;
 import edu.mum.gof.domain.RoomCart;
 
 public class BookingUtil {
-	public static Long getDayDifference(Date startDate, Date endDate) {
+	public static Long getDayDifference(LocalDate startDate, LocalDate endDate) {
 		try {
-			long difference =  (endDate.getTime()- startDate.getTime())/86400000;
-	        return Math.abs(difference);			
+			Period intervalPeriod = Period.between(startDate, endDate); 
+			return Math.abs((long) intervalPeriod.getDays());
 		}catch(Exception e) {
 			return null; 
 		}
 	}
-	public static Double getTotalCost(Room room, Date startDate, Date endDate) { 
+	public static Double getTotalCost(Room room, LocalDate startDate, LocalDate endDate) { 
 		if(room == null || startDate == null || endDate == null)
 			return null;
 		try {
@@ -26,10 +28,10 @@ public class BookingUtil {
 			return null;
 		}
 	}
-	public static Double getTotalTax(Room room, Date startDate, Date endDate) {
+	public static Double getTotalTax(Room room, LocalDate startDate, LocalDate endDate) {
 		return getTaxableAmountOf(getTotalCost(room, startDate, endDate));
 	}
-	public static List<RoomCart> getRoomCartListOf(List<Room> rooms, Date startDate, Date endDate) {
+	public static List<RoomCart> getRoomCartListOf(List<Room> rooms, LocalDate startDate, LocalDate endDate) {
 		if(rooms == null)
 			return null; 
 		if(rooms.size() <= 0 )
@@ -51,20 +53,17 @@ public class BookingUtil {
 			return null; 
 		}
 	}
-	public static Date getToday() {
-		Date day=new Date();
-		Calendar cal= Calendar.getInstance();
-		cal.setTime(day);
-	    cal.set(Calendar.HOUR_OF_DAY, cal.getMinimum(Calendar.HOUR_OF_DAY));
-	    cal.set(Calendar.MINUTE, cal.getMinimum(Calendar.MINUTE));
-	    cal.set(Calendar.SECOND, cal.getMinimum(Calendar.SECOND));
-	    cal.set(Calendar.MILLISECOND, cal.getMinimum(Calendar.MILLISECOND));
-	    return cal.getTime();
+	public static LocalDate getToday() {
+		LocalDate today = LocalDate.now(); 
+		return today; 
 	}
-	@SuppressWarnings("deprecation")
-	public static String getStringDate(Date date) {
+	public static LocalDate getTomorrow() {
+		return (getToday().plusDays(1)); 
+	}
+
+	public static String getStringDate(LocalDate date) {
 		try {
-			return date.getMonth() + "/" + date.getDate() + "/" + date.getYear();
+			return date.toString();
 		}catch(Exception e) {
 			return null;
 		}

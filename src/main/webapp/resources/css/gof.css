@@ -12,4 +12,7 @@ label { text-align: right; }
 #payment-id{
 	display: center;
 }
+.bold{
+	font-weight:bold;
+}
 

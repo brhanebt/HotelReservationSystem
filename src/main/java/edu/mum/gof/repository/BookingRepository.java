@@ -8,6 +8,4 @@ import edu.mum.gof.domain.Booking;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 	
-	
-
 }
