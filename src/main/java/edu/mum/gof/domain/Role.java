@@ -16,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity(name = "auth_role")
-@Table(name = "auth_role")
 public class Role implements Serializable {
 	/**
 	 * 

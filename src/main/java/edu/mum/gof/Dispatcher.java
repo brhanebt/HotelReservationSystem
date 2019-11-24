@@ -1,5 +1,7 @@
 package edu.mum.gof;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
@@ -10,7 +12,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
@@ -48,13 +53,15 @@ public class Dispatcher extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) 
 	{
-		registry.addInterceptor(new NoticeInterceptor())
-		.addPathPatterns("/");
+		registry.addInterceptor(localeChangeInterceptor());
+		registry.addInterceptor(new NoticeInterceptor()).addPathPatterns("/");
 	}
+
 	@Bean
 	public MessageSourceAccessor getMessageSourceAccessor() {
-	  return new MessageSourceAccessor(messageSource());
+		return new MessageSourceAccessor(messageSource());
 	}
+
 	@Bean(name = "messageSource")
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
@@ -65,7 +72,18 @@ public class Dispatcher extends WebMvcConfigurerAdapter {
 		return resource;
 	}
 
-
+	@Bean(name = "localeResolver")
+	public LocaleResolver localeResolver() {
+		SessionLocaleResolver resolver = new SessionLocaleResolver();
+		resolver.setDefaultLocale(Locale.US);
+		return resolver;
+	}
+	
+	private LocaleChangeInterceptor localeChangeInterceptor() {
+	    LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+	    localeChangeInterceptor.setParamName("lang");
+	    return localeChangeInterceptor;
+	}
 
 	@Bean(name = "validator")
 	public LocalValidatorFactoryBean validator() {

@@ -11,7 +11,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.*;
 import org.springframework.orm.jpa.*;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -54,10 +53,10 @@ public class Persistence {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 7748094024888299563L;
+			private static final long serialVersionUID = 1L;
 
 			{
-                setProperty("hibernate.hbm2ddl.auto",environment.getProperty("hibernate.hbm2ddl.auto"));
+                setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
                 setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("import.sql"));
                 setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
                 setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
@@ -80,5 +79,36 @@ public class Persistence {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
