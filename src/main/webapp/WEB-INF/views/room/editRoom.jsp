@@ -3,7 +3,6 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <h3 class="roomAvail-margin-center">
 		<spring:message code="editRoom.form.title"></spring:message>
 	</h3>

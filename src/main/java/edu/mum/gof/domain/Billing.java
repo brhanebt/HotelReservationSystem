@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Billing implements Serializable{
@@ -19,24 +20,23 @@ public class Billing implements Serializable{
 	@Id
 	private Long id;
 	
-	@NotNull
-	@Size(min=3, max=10, message="billing.firstName.can.notbe.null")
+	
+	@Size(min=3, max=10, message="{Siz.name.validation}")
 	private String firstName;
-	@NotNull
-	@Size(min=3, max=10, message="billing.lastName.can.notbe.null")
+	@Size(min=3, max=15, message="{Siz.name.validation}")
 	private String lastName;
-	@NotNull(message="billing.numberOnCard.can.notbe.null")
-	private Integer noOnCard;
-	@NotNull
-	private Integer securityCode;
-	@NotNull(message="billing.ExpireDate.Not.Null")
+	@NotEmpty(message="{NotEmpty}")
+	private String noOnCard;
+	@NotEmpty(message = "{NotEmpty}")
+	private String securityCode;
+	@NotNull(message="{NotNull}")
 	private Date expireDate;
-	@NotNull
-	@Email(message="billing.Email.Not.Null")
+	@NotEmpty(message="{NotEmpty}")
+	@Email(message="{invalidEmailField}")
 	private String email;
 	
-	@NotNull(message="billing.phoneNum.Not.Null")
-	private Integer phoneNumber;
+	@NotEmpty(message="{NotEmpty}")
+	private String phoneNumber;
 	
 	
 	
@@ -58,16 +58,16 @@ public class Billing implements Serializable{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Integer getNoOnCard() {
+	public String getNoOnCard() {
 		return noOnCard;
 	}
-	public void setNoOnCard(Integer noOnCard) {
+	public void setNoOnCard(String noOnCard) {
 		this.noOnCard = noOnCard;
 	}
-	public Integer getSecurityCode() {
+	public String getSecurityCode() {
 		return securityCode;
 	}
-	public void setSecurityCode(Integer securityCode) {
+	public void setSecurityCode(String securityCode) {
 		this.securityCode = securityCode;
 	}
 	public Date getExpireDate() {
@@ -82,10 +82,10 @@ public class Billing implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 }

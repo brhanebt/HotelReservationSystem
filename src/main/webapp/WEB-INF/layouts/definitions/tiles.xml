@@ -11,12 +11,6 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
 <put-attribute name="content" value="" />
 <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp" />
 </definition>
-<definition name="home" extends="baseLayout">
-<put-attribute name="title" value="Home" />
-<put-attribute name="heading" value="Home"/>
-<put-attribute name="tagline" value="Welcome to our Room Reservation" />
-<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
-</definition>
 <definition name="rooms" extends="baseLayout">
 <put-attribute name="title" value="Rooms List" />
 <put-attribute name="heading" value="Rooms List"/>
@@ -77,6 +71,13 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
 <put-attribute name="heading" value="Login!" />
 <put-attribute name="tagline" value="Please Login" />
 <put-attribute name="content" value="/WEB-INF/views/user/login.jsp" />
+</definition>
+
+<definition name="thankyou" extends="baseLayout">
+<put-attribute name="title" value="Booking Complete" />
+<put-attribute name="heading" value="Thank you!" />
+<put-attribute name="tagline" value="Booking and Billing is Done!" />
+<put-attribute name="content" value="/WEB-INF/views/billing/thankyou.jsp" />
 </definition>
 <definition name="signup" extends="baseLayout">
 <put-attribute name="title" value="Sign Up" />

@@ -1,5 +1,6 @@
 package edu.mum.gof.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,18 @@ import edu.mum.gof.service.RoomService;
 public class BookingServiceImpl implements BookingService{
 	
 	@Autowired private RoomRepository bookingRepository;
-	 
-
-	 
-	 public List<Room> findAll() {
-	 
-	 return (List<Room>)bookingRepository.findAll(); }
-	 
 	
+	public List<Room> findAll() {
+		return (List<Room>)bookingRepository.findAll(); 
+	}
 
+	@Override
+	public List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate) {
+		return this.findAll();
+	}
+
+	@Override
+	public List<Room> getAvailableRooms(LocalDate startDate) {
+		return this.findAll();
+	}
 }
