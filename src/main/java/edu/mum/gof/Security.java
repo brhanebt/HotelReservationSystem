@@ -71,35 +71,15 @@ public class Security extends WebSecurityConfigurerAdapter
  			(anyRequest()) should always be at the bottom of the list.     
          */
            .authorizeRequests()
-           .antMatchers( "/login**" ).permitAll()
-           .antMatchers( "/employees/add" ).hasRole( "ADMIN_ROLE" )
-           .antMatchers( "/employees" ).hasAnyRole( "ADMIN_ROLE","MANAGER_ROLE" )
+           .antMatchers("/","Booking","/user/login","/user/signup" ).permitAll()
+           .antMatchers( "/Customers","/Rooms" ).permitAll()
            .anyRequest().permitAll()
-
-           
-//                .antMatchers( "/","/login**" ).permitAll()
-//                .antMatchers("*/signup").permitAll()
-//                .antMatchers("/home/**").hasAnyAuthority( "ADMIN_ROLE", "USER_ROLE","MANAGER_ROLE")
-//                .antMatchers( "/user/add" ).hasRole( "ADMIN_ROLE" )
-//                .antMatchers( "/users" ).hasAnyRole( "ADMIN_ROLE","MANAGER_ROLE" )
-//                .anyRequest().authenticated()
              .and()
-            
-				/*
-				 * This is where we configure our login form. 
-				 * loginPage: the page that contains the login screen
-				 * login-processing-url: this is the URL to which the login form should be submitted 
-				 * e.g., [<form:form action=login-processing-url]
-				 * defaultSuccessUrl: the URL to which the user will be redirected if login is successful 
-				 * failureUrl: the URL to which the user will be redirected if  failed login
-				 */
              .csrf().disable().formLogin()
-                .loginPage( "/login" )
-                .failureUrl("/login?error=true") //uncertain
-                .loginProcessingUrl( "/postlogin" )
-                .defaultSuccessUrl("/home")
-                .defaultSuccessUrl( "/welcome" )
-                .failureUrl( "/loginfailed" )
+                .loginPage( "/user/login" )
+                .failureUrl("/user/login?error=true")
+                .loginProcessingUrl("/postlogin")
+                .defaultSuccessUrl("/Booking")
                 .permitAll()
                  .and()
  
@@ -112,8 +92,8 @@ public class Security extends WebSecurityConfigurerAdapter
 				 * logout
 				 */ 
              .logout()
-                .logoutRequestMatcher( new AntPathRequestMatcher( "/dologout" ) )
-                .logoutSuccessUrl( "/logout" ) // .logoutSuccessUrl( "/logout" ) -- optional
+                .logoutRequestMatcher( new AntPathRequestMatcher( "/logout" ) )
+                .logoutSuccessUrl( "/Booking" ) // .logoutSuccessUrl( "/logout" ) -- optional
                 .deleteCookies( "JSESSIONID" )
                 .invalidateHttpSession( true )
                 

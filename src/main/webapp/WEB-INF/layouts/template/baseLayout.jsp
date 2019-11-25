@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -36,6 +37,24 @@
 				<tiles:insertAttribute name="tagline" />
 			</p>
 		</div>
+		<nav class="navbar navbar-inverse">
+		
+		
+		<ul class="nav navbar-nav">
+		<li><a href="<spring:url value='/Booking' />"><spring:message code="user.booking" /></a></li>
+					<c:if test="${not userLogin}">
+						<li><a href="<spring:url value='/user/login' />"><spring:message code="user.login" /></a></li>
+						<li><a href="<spring:url value='/user/signup' />"><spring:message code="user.signup" /></a></li>
+					</c:if>
+			<c:if test="${userLogin}">
+			<li><a href="<spring:url value='/Rooms' />"><spring:message code="user.rooms" /></a></li>
+			<li><a href="<spring:url value='/Customers' />"><spring:message code="user.customers" /></a></li>	
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="<spring:url value='/user/logout' />"><spring:message code="user.logout" /></a></li>
+				</ul>
+		</c:if>
+					</ul>
+	</nav>
 		<div class="row">
 			<tiles:insertAttribute name="content" />
 		</div>

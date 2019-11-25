@@ -3,6 +3,8 @@ package edu.mum.gof.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.mum.gof.domain.Login;
@@ -21,6 +24,7 @@ import edu.mum.gof.domain.User;
 import edu.mum.gof.service.UserService;
 
 @Controller
+@SessionAttributes("userLogin")
 @RequestMapping(value = "/user")
 public class UserController {
 	
@@ -36,7 +40,7 @@ public class UserController {
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("user") Login user, BindingResult result, Model model,
-				RedirectAttributes redirectAttributes) {
+				RedirectAttributes redirectAttributes,HttpServletRequest request) {
 		model.addAttribute("errorMsg", "");
 		if (result.hasErrors()) {
 			return "login";
@@ -45,6 +49,7 @@ public class UserController {
 			model.addAttribute("errorMsg", "User Name or Password is Wrong!");
 			return "login";
 		}
+		request.getSession().setAttribute("userLogin", true);
 		redirectAttributes.addFlashAttribute("user", user);
 		return "redirect:/user/userHome";
 	}
@@ -60,7 +65,7 @@ public class UserController {
 	//signup post method
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public String signup(@Valid @ModelAttribute("registration") Registration registration, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes,HttpServletRequest request) {
 		if (result.hasErrors()) {
 			return "signup";
 		}
@@ -71,6 +76,7 @@ public class UserController {
 		}
 		User user = service.getUserFromRegistration(registration);
 		service.save(user);
+		request.getSession().setAttribute("userLogin", true);
 		redirectAttributes.addFlashAttribute("user", user);		
 		return "redirect:/user/userHome";
 	}
@@ -81,8 +87,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout() {
-		return "redirect:/home";
+	public String logout(HttpServletRequest request) {
+		request.getSession().setAttribute("userLogin", false);
+		return "redirect:/Booking";
 	}
 
 }

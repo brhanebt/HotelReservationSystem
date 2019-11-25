@@ -15,6 +15,19 @@
 </div>
 </section>
 
+		<nav class="navbar navbar-inverse">
+		<c:choose>
+		<c:when test="${user.userName}">
+		<ul class="nav navbar-nav">
+			<li><a href="<spring:url value='/Rooms' />"><spring:message code="user.rooms" /></a></li>
+			<li><a href="<spring:url value='/Customers' />"><spring:message code="user.customers" /></a></li>	
+			</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="<spring:url value='/user/logout' />"><spring:message code="user.logout" /></a></li>
+				</ul>
+		</c:when>
+		</c:choose>
+	</nav>
 <form:form modelAttribute="billing" action="/HotelReservationSystem/Billing/payment" method="POST">
 			<fieldset>
 				<legend>Billing Information</legend>

@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
-
 <p>
 <a href='<spring:url value="/Customer/add" />' class="label label-danger" > <span
 		class="glyphicon glyphicon-plus-sign" ></span><spring:message code="addCustomer.form.title.label"/> 
